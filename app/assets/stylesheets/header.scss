@@ -1,0 +1,19 @@
+$header-height: 60px;
+
+$sub-color: #7d7885;
+
+header {
+  width: 100%;
+  height: $header-height;
+  margin: 0;
+  padding: 0;
+  border-bottom: $sub-color 3px solid;
+  display: flex;
+  align-items: center;
+
+  .header-img {
+    height: 50%;
+    margin: 30px;
+    display: block;
+  }
+}

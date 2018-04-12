@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aniv96</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+      <%= image_tag "header-image.jpg", class: "header-img" %>
+    </header>
+    <%= yield %>
+    <footer>
+      <%= image_tag "logo.jpg", class: "logo" %>
+      <%= image_tag "musashi-logo.jpg", class: "logo" %>
+    </footer>
+  </body>
+</html>

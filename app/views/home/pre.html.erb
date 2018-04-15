@@ -1,3 +1,44 @@
+<script id="vs" type="x-shader/x-vertex">
+  varying vec2 v_texcoord;
+
+  void main() {
+    v_texcoord = uv;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+  }
+</script>
+
+<script id="fs" type="x-shader/x-fragment">
+  precision mediump float;
+  #define COLOR1 vec3(0.,0.62,1.0)
+  #define COLOR2 vec3(1.,0.5,0.)
+
+  uniform vec2 wind;
+  uniform sampler2D texture;
+  uniform vec2 texcoord;
+  uniform vec2 u_resolution;
+
+  varying vec2 v_texcoord;
+
+  void main(){
+  //    vec2 st = gl_FragCoord.xy / u_resolution;
+
+      vec2 diff = vec2(cos(wind.x), sin(wind.x)) * wind.y*0.001;
+
+      float orange = texture2D(texture, v_texcoord + diff).x;
+      float blue = texture2D(texture, v_texcoord - diff).x;
+
+
+      vec4 tec_color = texture2D(texture, v_texcoord);
+
+      gl_FragColor = vec4(tec_color.xyz, 1.0);
+
+      gl_FragColor = vec4(COLOR1*blue+COLOR2*orange, 1.0);
+     //gl_FragColor = vec4(vec3(wind.y / 6.0), 1.0);
+      // gl_FragColor = vec4(COLOR1, 1.0);
+  }
+
+</script>
+
 <div class="top-content">
   <!--<canvas id="pre-canvas">-->
 

@@ -2,7 +2,8 @@
   "name": "aniv96",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.4.3"
+    "@rails/webpacker": "^3.4.3",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",

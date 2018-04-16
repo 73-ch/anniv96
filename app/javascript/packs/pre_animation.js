@@ -1,12 +1,15 @@
 'use strict'
 export default class {
-    constructor(texture, json, callback) {
+    constructor(mobile_flag, texture, json, callback) {
         this.texture = texture;
         this.window_size = [window.innerWidth, window.innerHeight];
 
         this.wind_data = json;
 
         this.counter = 0;
+
+        this.threshold = mobile_flag ? 0.02: 0.0082;
+        this.power = mobile_flag ? 0.002: 0.001;
 
         this.renderer = new THREE.WebGLRenderer({antialias: true});
 
@@ -28,9 +31,11 @@ export default class {
         window.scene = this.final.scene;
 
         window.scene = this.logo.scene;
+
+        this.resizeCanvas();
     }
     update() {
-        this.final.material.uniforms.wind.value = new THREE.Vector2(this.wind_data[this.counter].direction, this.wind_data[this.counter].velocity)
+        this.final.material.uniforms.wind.value = new THREE.Vector2(this.wind_data[this.counter].direction, this.wind_data[this.counter].velocity * this.power);
 
         this.counter++;
 
@@ -51,6 +56,8 @@ export default class {
         this.renderer.render(this.final.scene, this.final.camera);
         // console.log(this.logo.rt.texture);
         callback();
+
+
     }
 
     logoLayer() {
@@ -65,7 +72,8 @@ export default class {
         this.logo.scene = new THREE.Scene();
 
         this.logo.camera = new THREE.PerspectiveCamera(45, this.window_size[0] / this.window_size[1], 1, 10000);
-        this.logo.camera.position.set(0, 0, 100);
+        this.logo.camera.position.set(0,0,1000);
+
 
         this.createLogo();
 
@@ -77,12 +85,12 @@ export default class {
 
 
     createLogo() {
-        let plane_geometry = new THREE.PlaneGeometry(30, 30);
+        this.logo.geometry = new THREE.PlaneGeometry(30, 30);
         let plane_material = new THREE.MeshBasicMaterial({
             map: this.texture
         });
 
-        this.logo.obj = new THREE.Mesh(plane_geometry, plane_material);
+        this.logo.obj = new THREE.Mesh(this.logo.geometry, plane_material);
 
         console.log(this.logo.obj);
 
@@ -107,7 +115,7 @@ export default class {
                 },
                 wind: {
                     type: "v2",
-                    value: new THREE.Vector2(this.wind_data[0].direction, this.wind_data[0].velocity)
+                    value: new THREE.Vector2(this.wind_data[0].direction, this.wind_data[0].velocity * this.power)
                 }
             }
         });
@@ -125,13 +133,21 @@ export default class {
         this.renderer.setSize(this.window_size[0], this.window_size[1]);
 
         this.logo.rt.setSize(this.window_size[0], this.window_size[1]);
+        // this.logo.rt.setPixelRatio(window.devecePixecRatio);
 
-        console.log(this.logo.rt.width);
-
-        this.logo.camera.aspect = this.window_size[0]/ this.window_size[1];
+        this.logo.camera.aspect = this.window_size[0] / this.window_size[1];
+        // this.logo.camera.position.set(0, 0, 2000 - (this.window_size[0] > this.window_size[1]? this.window_size[0] : this.window_size[1]) *1.75);
         this.logo.camera.updateProjectionMatrix();
-        this.final.camera.aspect = this.window_size[0]/ this.window_size[1];
-        this.final.camera.updateProjectionMatrix();
+
+        // console.log(this.window_size[0] < this.window_size[1]? this.window_size[0] : this.window_size[1]);
+
+        console.log(this.logo.obj);
+
+        let size = (this.window_size[0] < this.window_size[1]? this.window_size[0] : this.window_size[1]) * this.threshold;
+
+        this.logo.obj.scale.set(size, size, size);
+        // this.final.camera.aspect = this.window_size[0] / this.window_size[1];
+        // this.final.camera.updateProjectionMatrix();
     }
 
 }

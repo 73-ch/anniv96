@@ -14,6 +14,21 @@ global.THREE = require('./three.min.js');
 global.$ = require('jquery');
 
 document.addEventListener('DOMContentLoaded', () => {
+    let mobile_flag = false;
+
+    const userAgent = window.navigator.userAgent.toLowerCase();
+
+    if(userAgent.indexOf('iphone') != -1) {
+        // console.log('iPhone');
+        mobile_flag = true;
+    } else if(userAgent.indexOf('ipad') != -1) {
+        // console.log('iPad');
+        mobile_flag = true;
+    } else if(userAgent.indexOf('android') != -1) {
+        mobile_flag = true;
+    }
+
+    console.log("mobile", mobile_flag);
 
     const loader = new THREE.TextureLoader();
 
@@ -24,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // onLoad callback
             texture => {
-                const pre_animation = new PreAnimation(texture, json_data, () => {
+                const pre_animation = new PreAnimation(mobile_flag, texture, json_data, () => {
                     // const style = new PreStyle();
 
                     window.addEventListener('resize', () => {

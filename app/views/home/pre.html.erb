@@ -22,7 +22,7 @@
   void main(){
   //    vec2 st = gl_FragCoord.xy / u_resolution;
 
-      vec2 diff = vec2(cos(wind.x), sin(wind.x)) * wind.y*0.001;
+      vec2 diff = vec2(cos(wind.x), sin(wind.x)) * wind.y;
 
       float orange = texture2D(texture, v_texcoord + diff).x;
       float blue = texture2D(texture, v_texcoord - diff).x;

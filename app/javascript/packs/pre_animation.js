@@ -8,13 +8,15 @@ export default class {
 
         this.counter = 0;
 
-        this.threshold = mobile_flag ? 0.02: 0.0082;
-        this.power = mobile_flag ? 0.002: 0.001;
+        this.threshold = mobile_flag ? 0.02 : 0.0082;
+        this.mobile_power = mobile_flag ? 0.002 : 0.001;
 
         this.renderer = new THREE.WebGLRenderer({antialias: true});
 
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.window_size[0], this.window_size[1]);
+
+        this.move_rad = 0;
 
         this.logoLayer();
 
@@ -34,8 +36,13 @@ export default class {
 
         this.resizeCanvas();
     }
+
     update() {
-        this.final.material.uniforms.wind.value = new THREE.Vector2(this.wind_data[this.counter].direction, this.wind_data[this.counter].velocity * this.power);
+        let d = this.wind_data[this.counter];
+
+        let power = Math.exp(2 - Math.abs(Math.cos(d.direction) - Math.cos(this.move_rad))) * 0.5;
+
+        this.final.material.uniforms.wind.value = new THREE.Vector2(d.direction, d.velocity * this.mobile_power * power);
 
         this.counter++;
 
@@ -72,7 +79,7 @@ export default class {
         this.logo.scene = new THREE.Scene();
 
         this.logo.camera = new THREE.PerspectiveCamera(45, this.window_size[0] / this.window_size[1], 1, 10000);
-        this.logo.camera.position.set(0,0,1000);
+        this.logo.camera.position.set(0, 0, 1000);
 
 
         this.createLogo();
@@ -120,14 +127,14 @@ export default class {
             }
         });
 
-        this.final.geometry = new THREE.PlaneGeometry( this.window_size[0], this.window_size[1], 1, 1 );
-        this.final.plane = new THREE.Mesh( this.final.geometry, this.final.material );
+        this.final.geometry = new THREE.PlaneGeometry(this.window_size[0], this.window_size[1], 1, 1);
+        this.final.plane = new THREE.Mesh(this.final.geometry, this.final.material);
 
         this.final.scene.add(this.final.plane);
     }
 
     resizeCanvas() {
-        this.window_size = [window.innerWidth, window.innerHeight];
+        this.window_size = [window.innerWidth, window.innerHeight - 60];
 
         this.renderer.setPixelRatio(window.devicePixelRatio);
         this.renderer.setSize(this.window_size[0], this.window_size[1]);
@@ -143,11 +150,26 @@ export default class {
 
         console.log(this.logo.obj);
 
-        let size = (this.window_size[0] < this.window_size[1]? this.window_size[0] : this.window_size[1]) * this.threshold;
+        let size = (this.window_size[0] < this.window_size[1] ? this.window_size[0] : this.window_size[1]) * this.threshold;
 
         this.logo.obj.scale.set(size, size, size);
         // this.final.camera.aspect = this.window_size[0] / this.window_size[1];
         // this.final.camera.updateProjectionMatrix();
+    }
+
+    actionDevise(e) {
+        // this.power =
+    }
+
+    mouseMove(e) {
+        // console.log();
+        this.move_rad = Math.atan2(e.clientX / this.window_size[0] * 2 - 1, e.clientY / this.window_size[1] * (-2) + 1);
+        this.move_rad += this.move_rad < 0 ? Math.PI * 2 : 0;
+
+    }
+
+    deviseOrientation(e) {
+        this.move_rad = e.alpha / 360 * Math.PI;
     }
 
 }

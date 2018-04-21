@@ -18,13 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const userAgent = window.navigator.userAgent.toLowerCase();
 
-    if(userAgent.indexOf('iphone') != -1) {
+    if (userAgent.indexOf('iphone') != -1) {
         // console.log('iPhone');
         mobile_flag = true;
-    } else if(userAgent.indexOf('ipad') != -1) {
+    } else if (userAgent.indexOf('ipad') != -1) {
         // console.log('iPad');
-        mobile_flag = true;
-    } else if(userAgent.indexOf('android') != -1) {
+        mobile_flag = false;
+    } else if (userAgent.indexOf('android') != -1) {
         mobile_flag = true;
     }
 
@@ -42,10 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const pre_animation = new PreAnimation(mobile_flag, texture, json_data, () => {
                     // const style = new PreStyle();
 
+                    let window_size = [window.innerWidth, innerHeight];
+
                     window.addEventListener('resize', () => {
                         // style.resizeCanvas();
                         pre_animation.resizeCanvas();
+
+                        window_size = [window.innerWidth, innerHeight];
                     });
+
+                    if (mobile_flag) {
+                        window.addEventListener("deviceorientation", (e) => {
+                            pre_animation.deviseOrientation(e);
+;                        });
+
+                    } else {
+                        window.addEventListener("mousemove", (e) => {
+                            pre_animation.mouseMove(e);
+                        });
+                    }
+
+
                 });
             },
 

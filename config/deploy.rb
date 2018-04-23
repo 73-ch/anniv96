@@ -12,12 +12,15 @@ set :deploy_to, "/var/www/app/anniv96"
 
 set :branch, 'master' ### 変更 デプロイするリモートのブランチ
 set :default_stage, 'development'
-set :scm, :git
 set :deploy_via, :remote_cache
+
+set :rbenv_path, '/usr/local/bin/rbenv'
 
 set :log_level, :debug
 set :pty, true # sudo に必要
 set :bundle_binstubs, nil
+
+
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh

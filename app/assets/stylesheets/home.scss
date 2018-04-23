@@ -1,5 +1,13 @@
 @import "mixins";
 
+.date-data {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #F7F7F7;
+  font-size: 3em;
+}
+
 .fest-information {
   .access {
     display: flex;

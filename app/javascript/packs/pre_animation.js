@@ -6,7 +6,7 @@ export default class {
 
         this.wind_data = json;
 
-        this.counter = 0;
+        this.counter = Math.floor(Math.random() * this.wind_data.length);
 
         this.threshold = mobile_flag ? 0.02 : 0.0082;
         this.mobile_power = mobile_flag ? 0.002 : 0.001;
@@ -17,6 +17,8 @@ export default class {
         this.renderer.setSize(this.window_size[0], this.window_size[1]);
 
         this.move_rad = 0;
+
+        this.date_data = document.querySelector(".date-data");
 
         this.logoLayer();
 
@@ -47,6 +49,8 @@ export default class {
         this.counter++;
 
         if (this.counter >= this.wind_data.length) this.counter = 0;
+
+        this.date_data.textContent = d.date;
 
         this.draw(() => {
             requestAnimationFrame(this.update.bind(this));

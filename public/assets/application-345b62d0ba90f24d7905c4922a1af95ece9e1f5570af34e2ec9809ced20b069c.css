@@ -1,0 +1,125 @@
+@font-face {
+  font-family: 'Noto Sans JP';
+  font-style: normal;
+  font-weight: 500;
+  src: local("Noto Sans CJK JP Medium"), url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Medium.woff2) format("woff2"), url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Medium.woff) format("woff"), url(//fonts.gstatic.com/ea/notosansjp/v5/NotoSansJP-Medium.otf) format("opentype");
+}
+/* line 11, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/main.scss */
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+/* line 18, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/main.scss */
+h1, h2, h3, h4, h5, h6, p, div {
+  font-family: "Noto Sans JP";
+}
+
+/* line 21, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/main.scss */
+h1 {
+  font-size: 5em;
+}
+
+/* line 5, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/header.scss */
+header {
+  width: 100%;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+  border-bottom: #7d7885 3px solid;
+  display: flex;
+  align-items: center;
+}
+/* line 14, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/header.scss */
+header .header-img {
+  height: 50%;
+  margin: 30px;
+  display: block;
+}
+
+/* line 1, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/footer.scss */
+footer {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+  padding: 20px 0;
+  margin: 20px 0;
+  border-top: rgba(125, 120, 133, 0.6) 1px solid;
+}
+/* line 9, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/footer.scss */
+footer .logo {
+  height: 50px;
+  display: block;
+}
+
+/* line 3, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.date-data {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  color: #F7F7F7;
+  font-size: 3em;
+}
+
+/* line 12, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .access {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+/* line 18, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .segment {
+  margin: 10vh 5vw 0 5vw;
+}
+@media screen and (max-width: 980px) {
+  /* line 18, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+  .fest-information .segment {
+    margin: 2.5vh 5vw;
+  }
+}
+/* line 27, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .insert-content {
+  width: 50%;
+}
+@media screen and (max-width: 980px) {
+  /* line 27, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+  .fest-information .insert-content {
+    width: 80%;
+  }
+}
+/* line 35, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .access-text {
+  text-align: left;
+}
+/* line 43, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .google-map, .fest-information .twitter-timeline {
+  width: 100%;
+  height: 100%;
+}
+/* line 48, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information .google-map {
+  height: 50vh;
+}
+/* line 52, /Users/Namikawa/RubymineProjects/aniv96/app/assets/stylesheets/home.scss */
+.fest-information #and-more {
+  margin: 10vh 0;
+  font-size: 5em;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */

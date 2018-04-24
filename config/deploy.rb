@@ -1,22 +1,7 @@
-
-# require 'bundler/capistrano'
 # config valid for current version and patch releases of Capistrano
 
 
 lock "~> 3.10.2"
-
-before "deploy:assets:precompile", "deploy:yarn_install"
-
-namespace :deploy do
-  desc 'Run rake npm install'
-  task :npm_install do
-    on roles(:web) do
-      within release_path do
-        execute("cd #{release_path} && npm install")
-      end
-    end
-  end
-end
 
 set :application, "anniv96"
 set :repo_url, "git@github.com:nami634/anniv96.git"
@@ -25,7 +10,7 @@ set :repo_url, "git@github.com:nami634/anniv96.git"
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/app/anniv96"
+set :deploy_to, "/var/www/anniv96"
 
 set :branch, 'master' ### 変更 デプロイするリモートのブランチ
 set :default_stage, 'development'
@@ -53,7 +38,8 @@ set :bundle_binstubs, nil
 set :linked_files, %w{config/database.yml config/secrets.yml}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets bundle public/system public/assets}
+
 
 set :unicorn_pid, "#{shared_path}/tmp/pids/unicorn.pid"
 
@@ -78,7 +64,12 @@ namespace :deploy do
     end
   end
 
-
+  desc 'generate webpacker binstubs'
+  task :g_binstubs do
+    on roles(:app) do |host|
+      # execute "bundle binstubs bundler --force"
+    end
+  end
 
   # webサーバー再起動時にキャッシュを削除する
   after :restart, :clear_cache do
@@ -92,6 +83,7 @@ namespace :deploy do
   # Flow の before, after のタイミングで上記タスクを実行
   before :started, 'deploy:upload'
   after :finishing, 'deploy:cleanup'
+  before :started, 'deploy:g_binstubs'
 
   #unicorn 再起動タスク
 

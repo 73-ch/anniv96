@@ -5,6 +5,19 @@
 
 lock "~> 3.10.2"
 
+before "deploy:assets:precompile", "deploy:yarn_install"
+
+namespace :deploy do
+  desc 'Run rake npm install'
+  task :npm_install do
+    on roles(:web) do
+      within release_path do
+        execute("cd #{release_path} && npm install")
+      end
+    end
+  end
+end
+
 set :application, "anniv96"
 set :repo_url, "git@github.com:nami634/anniv96.git"
 

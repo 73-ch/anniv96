@@ -62,10 +62,14 @@
 
 set :stage, :production
 set :branch, 'master' ## 必要があれば変更
+set :unicorn_rack_env, "production
+"
 
 role :app, %w{deploy@153.122.62.162 } ###変更
 role :web, %w{deploy@153.122.62.162 } ###
 role :db, %w{deploy@153.122.62.162 }  ###
+
+server 'http://634-annivfest.com', user: 'deploy', roles: %w{web app}
 
 set :ssh_options, {
   port: 55555, #### 変更
